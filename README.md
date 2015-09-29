@@ -30,4 +30,4 @@ Pythenv will:
 - Delete temporary virtualenv.
 - Return code returned by executed script.
 
-*Enjoy*
+*Enjoy!*

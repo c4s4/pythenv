@@ -14,7 +14,9 @@ import subprocess
 HELP = '''pythenv [requirements.txt] script.py [args...]
 requirements.txt   The requirements file to run script
 script.py          The Python script to run
-args..             The script arguments'''
+args..             The script arguments
+If you don't pass a requirements file, they must be embedded in script with a
+comment such as: # requirements: foo==1.2.3, bar'''
 
 
 def error(message, code):

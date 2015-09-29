@@ -58,7 +58,7 @@ def parse_dependencies(py_file):
 def create_virtualenv():
     print("Creating virtualenv...", file=sys.stderr)
     env_dir = tempfile.mkdtemp(prefix='pythenv-env-', dir='/tmp')
-    if sys.version_info.major > 2 and sys.version_info.minor > 3:
+    if sys.version_info.major > 2 and sys.version_info.minor > 2:
         executable = 'pyvenv'
     else:
         executable = 'virtualenv'

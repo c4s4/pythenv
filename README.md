@@ -21,9 +21,6 @@ To run a Python script *script.py* with these requirements, you would type:
 
 ```
 $ pythenv requirements.txt script.py arg1 arg2
-Creating virtualenv...
-Installing dependencies...
-Running script...
 ```
 
 ### Embedding requirements in script
@@ -38,9 +35,6 @@ You would run this script with following command:
 
 ```
 $ pythenv script.py arg1 arg2
-Creating virtualenv...
-Installing dependencies...
-Running script...
 ```
 
 Installation

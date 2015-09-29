@@ -1,5 +1,9 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
+- version: 1.2.0
+  date:    2015-09-29
+  summary: Don't output anything while there is no error
+
 - version: 1.1.0
   date:    2015-09-29
   summary: Create virtualenv using pyvenv for Python 3.3 and above

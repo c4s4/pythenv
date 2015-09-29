@@ -5,8 +5,10 @@ Pythenv runs a Python script in a temporary virtualenv created at runtime and de
 
 <!--more-->
 
-Using a requirements file
--------------------------
+Usage
+-----
+
+### Using a requirements file
 
 You can specify requirements in a [standard requirements file](https://pip.readthedocs.org/en/1.1/requirements.html), *requirements.txt*, such as:
 
@@ -24,8 +26,7 @@ Installing dependencies...
 Running script...
 ```
 
-Embedding requirements in script
---------------------------------
+### Embedding requirements in script
 
 You can also embed requirements in the Python script, with a declaration in a comment that is a coma separated list of requirements:
 
@@ -33,7 +34,7 @@ You can also embed requirements in the Python script, with a declaration in a co
 # requirements: foo==1.2.3, bar
 ```
 
-You would run this script with follwing command:
+You would run this script with following command:
 
 ```
 $ pythenv script.py arg1 arg2
@@ -41,6 +42,17 @@ reating virtualenv...
 Installing dependencies...
 Running script...
 ```
+
+Installation
+------------
+
+To run *pythenv*, you must have installed:
+
+- A python virtual machine.
+- virtualenv to create virtual environment.
+- PIP to install requirements.
+
+To install *pythenv*, drop the script *pythenv* somewhere in your *PATH* (in a directory such as */usr/local/bin* or */opt/bin* for instance).
 
 How it works
 ------------

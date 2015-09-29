@@ -16,6 +16,6 @@ test:
 	./pythenv test/requirements.txt test/script.py
 	./pythenv test/script.py
 
-release: clean build articles
+release: test
 	@echo "$(YELLOW)Releasing project$(CLEAR)"
 	release

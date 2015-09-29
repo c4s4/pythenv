@@ -21,7 +21,7 @@ To run a Python script *script.py* with these requirements, you would type:
 
 ```
 $ pythenv requirements.txt script.py arg1 arg2
-reating virtualenv...
+Creating virtualenv...
 Installing dependencies...
 Running script...
 ```
@@ -38,7 +38,7 @@ You would run this script with following command:
 
 ```
 $ pythenv script.py arg1 arg2
-reating virtualenv...
+Creating virtualenv...
 Installing dependencies...
 Running script...
 ```
@@ -52,7 +52,7 @@ To run *pythenv*, you must have installed:
 - virtualenv to create virtual environment.
 - PIP to install requirements.
 
-To install *pythenv*, drop the script *pythenv* somewhere in your *PATH* (in a directory such as */usr/local/bin* or */opt/bin* for instance).
+To install *pythenv*, drop the script *pythenv* somewhere in your *PATH* (in a directory such as */usr/local/bin* or */opt/bin/* for instance).
 
 How it works
 ------------

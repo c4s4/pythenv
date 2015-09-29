@@ -17,11 +17,15 @@ script.py          The Python script to run
 args..             The script arguments
 If you don't pass a requirements file, they must be embedded in script with a
 comment such as: # requirements: foo==1.2.3, bar'''
+RED = '\033[91m\033[1m'
+END = '\033[0m'
 
 
-def error(message, code):
+def error(message, code, help=False):
+    print("%sERROR%s: %s" % (RED, END, message))
     print(message)
-    print(HELP)
+    if help:
+        print(HELP)
     sys.exit(code)
 
 
@@ -30,10 +34,7 @@ def run(command):
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
-    if process.returncode:
-        raise Exception("Error running command '%s': %s" %
-                        (' '.join(command), stderr.strip()))
-    return stdout
+    return process.returncode, stderr.strip()
 
 
 def parse_dependencies(py_file):
@@ -56,24 +57,26 @@ def parse_dependencies(py_file):
 
 
 def create_virtualenv():
-    print("Creating virtualenv...", file=sys.stderr)
     env_dir = tempfile.mkdtemp(prefix='pythenv-env-', dir='/tmp')
     if sys.version_info.major > 2 and sys.version_info.minor > 2:
         executable = 'pyvenv'
     else:
         executable = 'virtualenv'
-    run((executable, env_dir))
+    code, output = run((executable, env_dir))
+    if code:
+        error("creating virtualenv:\n%s" % output, code)
     atexit.register(run, ('rm', '-rf', env_dir))
     return env_dir
 
 
 def install_reqs(env_dir, reqs_file):
-    print("Installing dependencies...", file=sys.stderr)
-    run((os.path.join(env_dir, 'bin', 'pip'), 'install', '-r', reqs_file))
+    command = (os.path.join(env_dir, 'bin', 'pip'), 'install', '-r', reqs_file)
+    code, output = run(command)
+    if code:
+        error("installing dependencies:\n%s" % output, code)
 
 
 def run_script(env_dir, script_file, args):
-    print("Running script...", file=sys.stderr)
     command = [os.path.join(env_dir, 'bin', 'python'), script_file] + args
     return subprocess.call(command)
 
@@ -87,7 +90,9 @@ def main(script_file, reqs_file, args):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        error("You must pass script to run on command line", 1)
+        error("You must pass script to run on command line", 1, help=True)
+    elif sys.argv[1] in ('-h', '--help'):
+        print(HELP)
     elif sys.argv[1].endswith('.py'):
         dep_file = parse_dependencies(sys.argv[1])
         main(sys.argv[1], dep_file, sys.argv[2:])

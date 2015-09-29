@@ -1,33 +1,58 @@
 Pythenv
 =======
 
-Pythenv is a script to run a Python script within a virtualenv created at runtime and deleted afterward. Requirements may be passed as a requirements file on command line or embedded in the script after shebang, as follows:
+Pythenv runs a Python script in a temporary virtualenv created at runtime and deleted afterward.
+
+<!--more-->
+
+Using a requirements file
+-------------------------
+
+You can specify requirements in a [standard requirements file](https://pip.readthedocs.org/en/1.1/requirements.html), *requirements.txt*, such as:
+
+```
+foo==1.2.3
+bar
+```
+
+To run a Python script *script.py* with these requirements, you would type:
+
+```
+$ pythenv requirements.txt script.py arg1 arg2
+reating virtualenv...
+Installing dependencies...
+Running script...
+```
+
+Embedding requirements in script
+--------------------------------
+
+You can also embed requirements in the Python script, with a declaration in a comment that is a coma separated list of requirements:
 
 ```python
-#!/usr/bin/env python
 # requirements: foo==1.2.3, bar
-
-print("Hello World!")
 ```
 
-If you use requirements file, you would call the script as follows:
+You would run this script with follwing command:
 
-```bash
-$ pythenv requirements.txt script.py arg1 arg2...
+```
+$ pythenv script.py arg1 arg2
+reating virtualenv...
+Installing dependencies...
+Running script...
 ```
 
-If requirements are embedded in the script, one would call it as:
-
-```bash
-$ pythenv script.py arg1 arg2...
-```
+How it works
+------------
 
 Pythenv will:
 
-- Create a temporary virtualenv in */tlo* directory.
+- Create a temporary virtualenv in */tmp* directory.
 - Install dependencies in requirements.
 - Run the script in created virtualnv.
 - Delete temporary virtualenv.
 - Return code returned by executed script.
+
+If requirements are embedded in the script, a temporary requirements file will also be created in */tmp* directory.
 
 *Enjoy!*

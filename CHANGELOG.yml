@@ -1,5 +1,9 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
+- version: 1.1.0
+  date:    2015-09-29
+  summary: Create virtualenv using pyvenv for Python 3.4 and above
+
 - version: 1.0.0
   date:    2015-09-29
   summary: First release

@@ -48,8 +48,8 @@ Installation
 
 To run *pythenv*, you must have installed:
 
-- A python virtual machine.
-- virtualenv to create virtual environment.
+- A python virtual machine (tested with versions *2.7.10* and *3.5.0*).
+- virtualenv to create virtual environment (*pyvenv* will be called instead for Python *3.4* and above).
 - PIP to install requirements.
 
 To install *pythenv*, drop the script *pythenv* somewhere in your *PATH* (in a directory such as */usr/local/bin* or */opt/bin/* for instance).

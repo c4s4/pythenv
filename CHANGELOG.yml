@@ -1,5 +1,9 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
+- version: 1.2.1
+  date:    2015-09-30
+  summary: Fixed for Python 2.6
+
 - version: 1.2.0
   date:    2015-09-29
   summary: Don't output anything while there is no error

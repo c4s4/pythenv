@@ -85,8 +85,11 @@ def run_script(env_dir, script_file, args):
 def main(script_file, reqs_file, args):
     env_dir = create_virtualenv()
     install_reqs(env_dir, reqs_file)
-    code = run_script(env_dir, script_file, args)
-    sys.exit(code)
+    if script_file:
+        code = run_script(env_dir, script_file, args)
+        sys.exit(code)
+    else:
+        os.system(os.path.join(env_dir, 'bin', 'python'))
 
 
 if __name__ == '__main__':
@@ -94,6 +97,9 @@ if __name__ == '__main__':
         error("You must pass script to run on command line", 1, help=True)
     elif sys.argv[1] in ('-h', '--help'):
         print(HELP)
+    elif len(sys.argv) == 2 and sys.argv[1].endswith('.txt'):
+        print('Creating virtualenv and installing requirements...')
+        main(None, sys.argv[1], None)
     elif sys.argv[1].endswith('.py'):
         dep_file = parse_dependencies(sys.argv[1])
         main(sys.argv[1], dep_file, sys.argv[2:])

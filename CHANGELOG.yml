@@ -1,7 +1,7 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
 - version: 1.3.0
-  date:    2015-09-30
+  date:    2015-10-01
   summary: Added possibility to run interpreter in a virtualenv
   added:
   - "If you pass only a requirements file on command line, pythenv will create

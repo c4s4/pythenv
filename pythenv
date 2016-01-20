@@ -117,4 +117,4 @@ if __name__ == '__main__':
     else:
         script = None
         params = args
-    run(reqs, script, params)
+    main(reqs, script, params)

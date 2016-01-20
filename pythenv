@@ -100,7 +100,7 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hr:", ["help", "requirements="])
     except getopt.GetoptError as err:
-        print str(err)
+        print(str(err))
         sys.exit(1)
     for opt, arg in opts:
         if opt in ('-r', '--requirements'):

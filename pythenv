@@ -106,7 +106,7 @@ if __name__ == '__main__':
         if opt in ('-r', '--requirements'):
             reqs = arg
         elif opt in ('-h', '--help'):
-            print HELP
+            print(HELP)
             sys.exit()
         else:
             print "Unhandled option %s" % opt

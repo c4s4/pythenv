@@ -47,7 +47,7 @@ def parse_dependencies(py_file):
     if match:
         requirements = match.group(1)
     else:
-        error("Requirements not found in Python source file", 1)
+        return None
     text = '\n'.join([l.strip() for l in requirements.split(",")])
     _, tmp_file = tempfile.mkstemp(prefix='pythenv-requirements-',
                                    suffix='.txt', dir='/tmp')
@@ -85,8 +85,12 @@ def run_script(env_dir, script_file, args):
 
 def main(reqs_file, script_file, args):
     env_dir = create_virtualenv()
-    install_reqs(env_dir, reqs_file)
+    if reqs_file:
+        install_reqs(env_dir, reqs_file)
     if script_file:
+        deps_file = parse_dependencies(script_file)
+        if deps_file:
+            install_reqs(env_dir, deps_file)
         code = run_script(env_dir, script_file, args)
         sys.exit(code)
     else:
@@ -98,7 +102,8 @@ if __name__ == '__main__':
     script = None
     params = None
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hr:", ["help", "requirements="])
+        opts, args = getopt.getopt(sys.argv[1:], "hr:",
+                                   ["help", "requirements="])
     except getopt.GetoptError as err:
         print(str(err))
         sys.exit(1)

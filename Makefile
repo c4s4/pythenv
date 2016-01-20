@@ -13,7 +13,7 @@ help:
 
 test:
 	@echo "$(YELLOW)Running integration test$(CLEAR)"
-	./pythenv test/requirements.txt test/script.py
+	./pythenv -r test/requirements.txt test/script.py
 	./pythenv test/script.py
 
 release: test

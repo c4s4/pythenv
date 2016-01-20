@@ -1,5 +1,11 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
+- version: 2.0.0
+  date:    2016-01-20
+  summary: Added '-r' option to specify requirements file
+  added:
+  - "Option '-r' to pass requirements file on command line."
+
 - version: 1.3.0
   date:    2015-10-01
   summary: Added possibility to run interpreter in a virtualenv

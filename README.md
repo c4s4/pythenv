@@ -17,10 +17,10 @@ foo==1.2.3
 bar
 ```
 
-To run a Python script *script.py* with these requirements, you would type:
+To run a Python script *script.py* with these requirements, you would use *-r* option:
 
 ```
-$ pythenv requirements.txt script.py arg1 arg2
+$ pythenv -r requirements.txt script.py arg1 arg2
 ```
 
 ### Embedding requirements in script

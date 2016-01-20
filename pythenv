@@ -6,17 +6,18 @@ from __future__ import print_function
 import os
 import re
 import sys
+import getopt
 import atexit
 import tempfile
 import subprocess
 
 
-HELP = '''pythenv [requirements.txt] script.py [args...]
-requirements.txt   The requirements file to run script
-script.py          The Python script to run
-args..             The script arguments
-If you don't pass a requirements file, they must be embedded in script with a
-comment such as: # requirements: foo==1.2.3, bar'''
+HELP = '''pythenv [-r requirements.txt] script.py [args...]
+-r requirements.txt   The requirements file to run script
+script.py             The Python script to run
+args..                The script arguments
+If you don't pass a requirements file, they must be embedded in script
+with a comment such as: # requirements: foo==1.2.3, bar'''
 RED = '\033[91m\033[1m'
 END = '\033[0m'
 
@@ -82,7 +83,7 @@ def run_script(env_dir, script_file, args):
     return subprocess.call(command)
 
 
-def main(script_file, reqs_file, args):
+def main(reqs_file, script_file, args):
     env_dir = create_virtualenv()
     install_reqs(env_dir, reqs_file)
     if script_file:
@@ -93,17 +94,27 @@ def main(script_file, reqs_file, args):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        error("You must pass script to run on command line", 1, help=True)
-    elif sys.argv[1] in ('-h', '--help'):
-        print(HELP)
-    elif len(sys.argv) == 2 and sys.argv[1].endswith('.txt'):
-        print('Creating virtualenv and installing requirements...')
-        main(None, sys.argv[1], None)
-    elif sys.argv[1].endswith('.py'):
-        dep_file = parse_dependencies(sys.argv[1])
-        main(sys.argv[1], dep_file, sys.argv[2:])
-    elif sys.argv[1].endswith('.txt') and sys.argv[2].endswith('.py'):
-        main(sys.argv[2], sys.argv[1], sys.argv[3:])
+    reqs = None
+    script = None
+    params = None
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hr:", ["help", "requirements="])
+    except getopt.GetoptError as err:
+        print str(err)
+        sys.exit(1)
+    for opt, arg in opts:
+        if opt in ('-r', '--requirements'):
+            reqs = arg
+        elif opt in ('-h', '--help'):
+            print HELP
+            sys.exit()
+        else:
+            print "Unhandled option %s" % opt
+            sys.exit(1)
+    if args:
+        script = args[0]
+        params = args[1:]
     else:
-        error(None, 1)
+        script = None
+        params = args
+    run(reqs, script, params)

@@ -109,7 +109,7 @@ if __name__ == '__main__':
             print(HELP)
             sys.exit()
         else:
-            print "Unhandled option %s" % opt
+            print("Unhandled option %s" % opt)
             sys.exit(1)
     if args:
         script = args[0]

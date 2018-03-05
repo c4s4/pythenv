@@ -1,5 +1,9 @@
 # Semantic ChangeLog (see https://github.com/c4s4/changelog/)
 
+- version: 2.0.1
+  date:    2018-03-05
+  summary: Removed warnings and added NeON build file
+
 - version: 2.0.0
   date:    2016-01-20
   summary: Added '-r' option to specify requirements file

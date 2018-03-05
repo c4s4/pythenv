@@ -1,0 +1,13 @@
+# NeON Build File (http://github.com/c4s4/neon)
+
+extends:
+- c4s4/build/python.yml
+- c4s4/build/release.yml
+
+targets:
+
+  test:
+    doc: Run integration test
+    steps:
+    - $: ['={VENV_DIR}/bin/python', 'pythenv', '-r', 'test/requirements.txt', 'test/script.py']
+    - $: ['={VENV_DIR}/bin/python', 'pythenv', 'test/script.py']

@@ -146,6 +146,7 @@ def main(reqs_file, script_file, args):
 
 
 if __name__ == '__main__':
+    REQS = None
     try:
         OPTS, ARGS = getopt.getopt(sys.argv[1:], "hr:",
                                    ["help", "requirements="])
@@ -154,7 +155,7 @@ if __name__ == '__main__':
         sys.exit(1)
     for opt, arg in OPTS:
         if opt in ('-r', '--requirements'):
-            reqs = arg
+            REQS = arg
         elif opt in ('-h', '--help'):
             print(HELP)
             sys.exit()
@@ -167,4 +168,4 @@ if __name__ == '__main__':
     else:
         SCRIPT = None
         PARAMS = ARGS
-    main(reqs, SCRIPT, PARAMS)
+    main(REQS, SCRIPT, PARAMS)

@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # encoding: UTF-8
 
+'''
+Script to create virtualenv and install dependencies on the fly to run scripts.
+Dependencies might be declared:
+- In a requirements file that shall be passed on command line.
+- In a comment at the beginning of the script, such as:
+  # requirements: foo==1.2.3, bar
+'''
+
 from __future__ import print_function
 
 import os
@@ -22,15 +30,28 @@ RED = '\033[91m\033[1m'
 END = '\033[0m'
 
 
-def error(message, code, help=False):
+def error(message, code, hlp=False):
+    '''
+    Print an error message:
+    - message: the message to print
+    - code: the exit code
+    - hlp: tells if we should print help
+    '''
     print("%sERROR%s: %s" % (RED, END, message))
     print(message)
-    if help:
+    if hlp:
         print(HELP)
     sys.exit(code)
 
 
 def run(command):
+    '''
+    Run given command:
+    - command: command to run
+    Return:
+    - command return code
+    - command output on stdout and stderr
+    '''
     process = subprocess.Popen(command,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
@@ -39,6 +60,11 @@ def run(command):
 
 
 def parse_dependencies(py_file):
+    '''
+    Parse dependencies and generate a temporary requirements file:
+    - py_file: the name of the script to parse
+    Return: the name of temporary requirements file
+    '''
     source = None
     with open(py_file) as stream:
         source = stream.read()
@@ -58,6 +84,10 @@ def parse_dependencies(py_file):
 
 
 def create_virtualenv():
+    '''
+    Create a virtualenv
+    Return: the virtualenv directory path
+    '''
     env_dir = tempfile.mkdtemp(prefix='pythenv-env-', dir='/tmp')
     major, minor = sys.version_info[:2]
     if major > 2 and minor > 2:
@@ -72,6 +102,11 @@ def create_virtualenv():
 
 
 def install_reqs(env_dir, reqs_file):
+    '''
+    Install requirements:
+    - env_dir: the virtualenv directory
+    - reqs_file: the requirements file name
+    '''
     command = (os.path.join(env_dir, 'bin', 'pip'), 'install', '-r', reqs_file)
     code, output = run(command)
     if code:
@@ -79,11 +114,24 @@ def install_reqs(env_dir, reqs_file):
 
 
 def run_script(env_dir, script_file, args):
+    '''
+    Run script:
+    - env_dir: virtualenv directory
+    - script_file: the file of the script to run
+    - args: script arguments
+    Return: the script return code
+    '''
     command = [os.path.join(env_dir, 'bin', 'python'), script_file] + args
     return subprocess.call(command)
 
 
 def main(reqs_file, script_file, args):
+    '''
+    Create virtualenv, install dependencies and run the script:
+    - reqs_file: requirements file passed on command line
+    - script_file: script passed on command line
+    - args: script arguments passed on command line
+    '''
     env_dir = create_virtualenv()
     if reqs_file:
         install_reqs(env_dir, reqs_file)
@@ -98,16 +146,13 @@ def main(reqs_file, script_file, args):
 
 
 if __name__ == '__main__':
-    reqs = None
-    script = None
-    params = None
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hr:",
+        OPTS, ARGS = getopt.getopt(sys.argv[1:], "hr:",
                                    ["help", "requirements="])
     except getopt.GetoptError as err:
         print(str(err))
         sys.exit(1)
-    for opt, arg in opts:
+    for opt, arg in OPTS:
         if opt in ('-r', '--requirements'):
             reqs = arg
         elif opt in ('-h', '--help'):
@@ -116,10 +161,10 @@ if __name__ == '__main__':
         else:
             print("Unhandled option %s" % opt)
             sys.exit(1)
-    if args:
-        script = args[0]
-        params = args[1:]
+    if ARGS:
+        SCRIPT = ARGS[0]
+        PARAMS = ARGS[1:]
     else:
-        script = None
-        params = args
-    main(reqs, script, params)
+        SCRIPT = None
+        PARAMS = ARGS
+    main(reqs, SCRIPT, PARAMS)

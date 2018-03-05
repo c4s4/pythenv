@@ -1,5 +1,6 @@
 # NeON Build File (http://github.com/c4s4/neon)
 
+default: [lint, test]
 extends:
 - c4s4/build/python.yml
 - c4s4/build/release.yml

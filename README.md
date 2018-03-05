@@ -55,7 +55,7 @@ Pythenv will:
 
 - Create a temporary virtualenv in */tmp* directory.
 - Install dependencies in requirements.
-- Run the script in created virtualnv.
+- Run the script in created virtualenv.
 - Delete temporary virtualenv.
 - Return code returned by executed script.
 

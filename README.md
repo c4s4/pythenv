@@ -1,12 +1,10 @@
-Pythenv
-=======
+# Pythenv
 
 Pythenv runs a Python script in a temporary virtualenv created at runtime and deleted afterward.
 
 <!--more-->
 
-Usage
------
+## Usage
 
 ### Using a requirements file
 
@@ -37,8 +35,7 @@ You would run this script with following command:
 $ pythenv script.py arg1 arg2
 ```
 
-Installation
-------------
+# Installation
 
 To run *pythenv*, you must have installed:
 
@@ -48,8 +45,7 @@ To run *pythenv*, you must have installed:
 
 To install *pythenv*, drop the script *pythenv* somewhere in your *PATH* (in a directory such as */usr/local/bin* or */opt/bin/* for instance).
 
-How it works
-------------
+# How it works
 
 Pythenv will:
 

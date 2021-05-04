@@ -88,13 +88,15 @@ def create_virtualenv():
     Create a virtualenv
     Return: the virtualenv directory path
     '''
-    env_dir = tempfile.mkdtemp(prefix='pythenv-env-', dir='/tmp')
+    env_dir = tempfile.mkdtemp(prefix='pythenv-', dir='/tmp')
     major, minor = sys.version_info[:2]
-    if major > 2 and minor > 2:
-        executable = 'pyvenv'
+    if major > 2 and minor > 5:
+        command = ('python', '-m', 'venv', env_dir)
+    elif major > 2 and minor > 2:
+        command = ('pyvenv', env_dir)
     else:
-        executable = 'virtualenv'
-    code, output = run((executable, env_dir))
+        command = ('virtualenv', env_dir)
+    code, output = run(command)
     if code:
         error("creating virtualenv:\n%s" % output, code)
     atexit.register(run, ('rm', '-rf', env_dir))

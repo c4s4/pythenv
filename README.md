@@ -35,6 +35,21 @@ You would run this script with following command:
 $ pythenv script.py arg1 arg2
 ```
 
+### Shebang
+
+To start a script with *pythenv*, you can add following line as the first line of your script:
+
+```py
+#!/usr/bin/env pythenv
+# requirements: foo==1.2.3, ...
+```
+
+This line (called a *shebang*) will run your script calling *pythenv* as if you typed:
+
+```
+$ pythenv script.py arg1 arg2...
+```
+
 # Installation
 
 To run *pythenv*, you must have installed:

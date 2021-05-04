@@ -52,11 +52,11 @@ def run(command):
     - command return code
     - command output on stdout and stderr
     '''
-    process = subprocess.Popen(command,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    return process.returncode, stdout.strip()+stderr.strip()
+    with subprocess.Popen(command,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE) as process:
+        stdout, stderr = process.communicate()
+        return process.returncode, stdout.strip()+stderr.strip()
 
 
 def parse_dependencies(py_file):
